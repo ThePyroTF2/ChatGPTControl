@@ -1,0 +1,11 @@
+{
+  "name": "chatgptcontrol",
+  "version": "1.0.0",
+  "description": "A script to let ChatGPT browse the internet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Devin",
+  "license": "ISC"
+}
