@@ -1,6 +1,6 @@
-import { Builder, By, Key, until, WebDriver } from './node_modules/selenium-webdriver/index.js'
+import { Builder } from 'selenium-webdriver'
 
-const driver = new Builder().forBrowser('chrome').build()
+const driver = await new Builder().forBrowser('chrome').build()
 
 const approve = async (code: () => unknown) => {
 	const approved = (await prompt(`Run the following code? (y/n)\n\n${code.toString()}\n`))?.toLowerCase()
@@ -13,5 +13,5 @@ const approve = async (code: () => unknown) => {
 }
 
 approve(() => {
-	console.log(JSON.stringify(driver))
+	driver.get('https://www.google.com')
 })
