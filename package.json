@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "A script to let ChatGPT browse the internet",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "Devin",
   "license": "ISC",
   "dependencies": {
     "@types/prompt": "^1.1.5",
     "@types/selenium-webdriver": "^4.1.13",
+    "openai": "^3.2.1",
     "prompt": "^1.3.0",
     "selenium-webdriver": "^4.9.0",
     "typescript": "^5.0.4"
