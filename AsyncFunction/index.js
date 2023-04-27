@@ -1,1 +1,3 @@
-export const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+
+module.exports = AsyncFunction
