@@ -6,8 +6,8 @@ const main = async () => {
 	const driver = await new Builder().forBrowser('chrome').build()
 
 	try{
-		const getGoogle = new AsyncFunction(`await driver.get('https://www.google.com')`)
-		await approve(getGoogle)
+		const getGoogle = new AsyncFunction('driver', `await driver.get('https://www.google.com')`)
+		await approve(getGoogle, () => {}, driver)
 		await approve(async () => {
 			await (await driver.findElement({name: 'q'}))?.sendKeys(`Selenium${Key.RETURN}`)
 			await driver.wait(until.elementLocated({css: '#search'}))
