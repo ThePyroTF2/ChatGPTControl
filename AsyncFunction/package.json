@@ -1,0 +1,10 @@
+{
+	"name": "asyncfunction",
+	"version": "1.0.0",
+	"description": "Creates an asynchronous function given a string with code",
+	"main": "index.js",
+	"scripts": {},
+	"author": "Devin",
+	"license": "ISC",
+	"type": "module"
+}
