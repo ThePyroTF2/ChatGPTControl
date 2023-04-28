@@ -9,7 +9,7 @@ const main = async () => {
 		const getGoogle = new AsyncFunction('driver', `await driver.get('https://www.google.com')`)
 		await approve(getGoogle, () => {}, driver)
 		await approve(async () => {
-			await (await driver.findElement({name: 'q'}))?.sendKeys(`Selenium${Key.RETURN}`)
+			await (await driver.findElement({name: 'q'}))?.sendKeys(`Selenium`)
 			await driver.wait(until.elementLocated({css: '#search'}))
 		})
 		await approve(async () => await (await driver.findElement({css: '#search .g a'}))?.click())

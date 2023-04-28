@@ -9,6 +9,7 @@
   "dependencies": {
     "@types/prompt": "^1.1.5",
     "@types/selenium-webdriver": "^4.1.13",
+    "gpt-3-encoder": "^1.1.4",
     "openai": "^3.2.1",
     "prompt": "^1.3.0",
     "selenium-webdriver": "^4.9.0",

@@ -5,5 +5,8 @@
 	"main": "index.js",
 	"scripts": {},
 	"author": "Devin",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"selenium-webdriver": "^4.9.0"
+	}
 }
