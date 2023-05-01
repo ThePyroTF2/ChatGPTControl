@@ -1,5 +1,4 @@
 import Prompt from 'prompt'
-import AsyncFunction from './AsyncFunction'
 
 Prompt.start()
 
