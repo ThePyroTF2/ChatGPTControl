@@ -7,6 +7,7 @@ interface approveResponse {
 	approved: boolean
 	success?: boolean
 	return?: any
+	options?: {[key: string]: string}
 }
 
 type syncFunction<T> = (...args: any[]) => T
@@ -19,28 +20,31 @@ type asyncFunction<T> = (...args: any[]) => Promise<T>
  * @param args - The arguments to pass to `code`
  * @returns Whether the call was approved, whether it threw an error, and the return value of the function call
  */
-export default async function approve<T>(code: asyncFunction<T> | syncFunction<T>, fallback: asyncFunction<T> | syncFunction<T> = () => undefined, ...args: any[]): Promise<approveResponse> {
-	const promptString = `Run the following code? (y/n)\n\n${code.toString()}\n`
-	const res = await Prompt.get<{[key: string]: string}>([promptString])
-	const approved = res[promptString].toLowerCase()
-	if(approved == 'y') {
+export default async function approve<T>(code: asyncFunction<T> | syncFunction<T>, fallback: asyncFunction<T> | syncFunction<T> = () => undefined, options: string[] = [], ...args: any[]): Promise<approveResponse> {
+	let valid = false
+	const output: approveResponse = {approved: false, options: {}}
+	while(!valid) {
+		valid = true
+		if(!valid) console.log('Invalid input. Please try again.')
+		const promptString = `Run the following code? (y/n)\n\n${code.toString()}\n`
+		const res = await Prompt.get<{[key: string]: string}>([promptString, ...options])
 		console.log()
-		try{
-			return {
-				approved: true,
-				success: true,
-				return: await code(...args)
-			}
-		} catch(e) {
-			console.error(e)
-			return {
-				approved: true,
-				success: false,
-				return: await fallback(e)
+		const approved = res[promptString].toLowerCase()
+		if(approved == 'y') {
+			output.approved = true
+			try{
+				output.return = await code(...args)
+				output.success = true
+			} catch(e) {
+				console.error(e)
+				output.return = fallback(e)
+				output.success = false
 			}
 		}
+		else if(approved == 'n') output.approved = false
+		else valid = false
+		for(const option of options) output.options[option] = res[option]
 	}
-	return {
-		approved: false
-	}
+
+	return output
 }
