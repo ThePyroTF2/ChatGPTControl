@@ -14,9 +14,9 @@ const runGivenCode = async (code: string, driver: WebDriver): Promise<string> =>
 	let output = ''
 	const runnableCode = new AsyncFunction('driver', 'Key', 'until', code)
 	const approved = await approve(runnableCode, (e) => e, ['message'], driver, Key, until)
-	if(approved.approved) output.concat(JSON.stringify(approved.return))
-	else output.concat('[Code has been denied.]')
-	if(approved.options.message) output.concat(`\n\n[User message: "${approved.options.message}"]`)
+	if(approved.approved) output += JSON.stringify(approved.return)
+	else output += '[Code has been denied.]'
+	if(approved.options.message) output += `\n[User message: "${approved.options.message}"]`
 	return output
 }
 
@@ -29,7 +29,11 @@ const main = async () => {
 		{role: 'assistant', content:`\`\`\`js\nawait driver.get('https://www.google.com')\n\`\`\``},
 		{role: 'user', content: 'undefined'},
 		{role: 'assistant', content: `\`\`\`js\nawait (await driver.findElement({name: 'q'}))?.sendKeys(\`Nuclear Launch Codes$\{Key.RETURN}\`)\nawait driver.wait(until.titleIs('Nuclear Launch Codes - Google Search'), 10000)\n\`\`\``},
-		{role: 'user', content: `[Code has been denied.]\n\n[User message: "I don't think you should be doing that..."]`},
+		{role: 'user', content: `[Code has been denied.]`},
+		{role: 'assistant', content: `\`\`\`js\nawait (await driver.findElement({name: 'q'}).sendKeys(\`OpenAI\${Key.RETURN}\`)\nawait driver.wait(until.titleIs('openai - Google Search'), 10000)\n\`\`\``},
+		{role: 'user', content: '[Code has been denied.]\n[User message: "This will time out. The capitalization of your search and your awaited title is different. Try \`await driver.wait(until.titleIs(\'OpenAI - Google Search\'), 10000)\` instead.]'},
+		{role: 'system', content: 'The previous messages were to demonstrate how the system works. The next messages will be the real deal.'},
+		{role: 'user', content: '[Disregard this message.]'}
 	]
 	await driver.get('https://www.google.com')
 		while(true) {
