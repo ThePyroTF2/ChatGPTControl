@@ -2,7 +2,7 @@
   "name": "chatgptcontrol",
   "version": "1.0.0",
   "description": "A script to let ChatGPT browse the internet",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {},
   "author": "Devin",
   "license": "ISC",
