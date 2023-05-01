@@ -50,6 +50,7 @@ const main = async () => {
 				prompt.push({role: 'user', content: result ? result : 'undefined'})
 			} catch (e) {
 				console.error(e)
+				if(e.message.toLowerCase() == 'canceled') break
 				await driver.close()
 			}
 		}	
