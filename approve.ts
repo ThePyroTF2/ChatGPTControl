@@ -24,7 +24,6 @@ export default async function approve<T>(code: asyncFunction<T> | syncFunction<T
 	const output: approveResponse = {approved: false, options: {}}
 	while(!valid) {
 		valid = true
-		if(!valid) console.log('Invalid input. Please try again.')
 		const promptString = `Run the following code? (y/n)\n\n${code.toString()}\n`
 		const res = await Prompt.get<{[key: string]: string}>([promptString, ...options])
 		console.log()
@@ -43,6 +42,7 @@ export default async function approve<T>(code: asyncFunction<T> | syncFunction<T
 		else if(approved == 'n') output.approved = false
 		else valid = false
 		for(const option of options) output.options[option] = res[option]
+		if(!valid) console.log('Invalid input. Please try again.')
 	}
 
 	return output
