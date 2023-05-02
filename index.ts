@@ -29,7 +29,7 @@ const main = async () => {
 
 	const driver = await new Builder().forBrowser('chrome').build()
 
-	const prompt: ChatCompletionRequestMessage[] = JSON.parse(await fs.promises.readFile('./setup.json', 'utf-8'))
+	const prompt: ChatCompletionRequestMessage[] = JSON.parse(await fs.promises.readFile('~/Documents/ChatGPTControl/setup.json', 'utf-8'))
 
 	while(true) {
 		try{
