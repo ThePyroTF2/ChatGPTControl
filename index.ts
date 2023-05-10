@@ -1,6 +1,7 @@
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from 'openai'
 import { Builder, WebDriver, Key, until } from 'selenium-webdriver'
 import { encode } from 'gpt-3-encoder'
+import untildify from 'untildify'
 import fs from 'fs'
 import approve from './approve'
 import AsyncFunction from './AsyncFunction'
@@ -29,7 +30,7 @@ const main = async () => {
 
 	const driver = await new Builder().forBrowser('chrome').build()
 
-	const prompt: ChatCompletionRequestMessage[] = JSON.parse(await fs.promises.readFile('~/Documents/ChatGPTControl/setup.json', 'utf-8'))
+	const prompt: ChatCompletionRequestMessage[] = JSON.parse(await fs.promises.readFile(untildify('~/Documents/ChatGPTControl/setup.json'), 'utf-8'))
 
 	while(true) {
 		try{
